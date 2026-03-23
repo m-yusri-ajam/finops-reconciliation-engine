@@ -15,16 +15,24 @@ sudo apt update && sudo apt upgrade -y
 echo "Installing Python3 and Pip..."
 sudo apt install -y python3 python3-pip
 
-# 3. Install Python Libraries (User-level to prevent OS conflicts)
-# Note: We use --upgrade to ensure we have the latest stable versions.
-echo "Installing Data Science & Web Stack..."
-pip3 install --user --upgrade \
+# 3. Setup Virtual Environment and Install Libraries
+echo "Setting up Virtual Environment..."
+sudo apt install -y python3-venv
+
+# Create the environment in a hidden folder
+python3 -m venv .venv
+
+# Install libraries INSIDE the environment
+echo "Installing Data Science & Web Stack into .venv..."
+./.venv/bin/pip install --upgrade \
     pandas \
     numpy \
     scikit-learn \
     flask \
     sqlalchemy \
-    requests
+    requests \
+    thefuzz \
+    python-Levenshtein
 
 # 4. Install VS Code via Snap (Standard for Ubuntu)
 if ! command -v code &> /dev/null; then
