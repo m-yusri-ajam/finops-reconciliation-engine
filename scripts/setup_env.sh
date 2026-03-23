@@ -15,16 +15,23 @@ sudo apt update && sudo apt upgrade -y
 echo "Installing Python3 and Pip..."
 sudo apt install -y python3 python3-pip
 
-# 3. Setup Virtual Environment and Install Libraries
-echo "Setting up Virtual Environment..."
-sudo apt install -y python3-venv
+# 3. Setup Virtual Environment at Project Root
+echo "Determining Project Root..."
 
-# Create the environment in a hidden folder
+# Get the absolute path of the directory where the script is located
+SCRIPT_PATH=$(readlink -f "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_DIR") # This is 'scripts'
+ROOT_DIR=$(dirname "$SCRIPT_DIR")   # This is the 'root'
+
+cd "$ROOT_DIR"
+echo "Root directory identified as: $ROOT_DIR"
+
+# Create the environment
 python3 -m venv .venv
 
-# Install libraries INSIDE the environment
-echo "Installing Data Science & Web Stack into .venv..."
-./.venv/bin/pip install --upgrade \
+# Use the absolute path to the new pip to install libraries
+echo "Installing Data Science & Web Stack into $ROOT_DIR/.venv..."
+"$ROOT_DIR/.venv/bin/pip" install --upgrade \
     pandas \
     numpy \
     scikit-learn \
