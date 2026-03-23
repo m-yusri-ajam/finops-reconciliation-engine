@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+
+# Data & Logs
+data/*.csv
+data/*.xlsx
+*.log
+
+# OS Junk
+.DS_Store
+Thumbs.db
+EOF
