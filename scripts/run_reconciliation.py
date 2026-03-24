@@ -122,6 +122,14 @@ def main():
             txn_list = ", ".join(map(str, row['TXN_ID']))
             logging.info(f"    {vendor}: ${row['Variance']:,.2f} | Txn IDs: [{txn_list}]")
 
+    # --- Looker Studio Export ---
+    passed_df['Audit_Status'] = 'Passed'
+    review_df['Audit_Status'] = 'Failed'
+    
+    master_df = pd.concat([passed_df, review_df], ignore_index=True)
+    master_df.to_csv('data/looker_master_report.csv', index=False)
+    logging.info("Master report for Looker Studio exported.")
+
 
 if __name__ == "__main__":
     try:
